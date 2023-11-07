@@ -6,7 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -35,6 +37,10 @@ public class Person {
   @Column(name = "person_last_name")
   private String personLastName;
 
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "person")
+  @JoinColumn(name = "mood_id")
+  private Mood mood;
+
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
   @OrderBy(value = "memoryId")
   private List<Memory> memories;
@@ -43,6 +49,9 @@ public class Person {
   @LastModifiedDate
   private LocalDateTime createdDate;
 
-  @Column(name = "primary_user")
-  private boolean primaryUser;
+  private String relationship;
+
+  private String morale;
+
+  private String emergencyContact;
 }
